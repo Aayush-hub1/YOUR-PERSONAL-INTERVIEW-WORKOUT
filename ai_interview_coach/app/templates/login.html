@@ -1,0 +1,25 @@
+{% extends "auth_base.html" %}
+{% block title %}Log in — Prep{% endblock %}
+{% block content %}
+  <div class="auth-eyebrow">WELCOME BACK</div>
+  <h1>Log in to Prep</h1>
+  <p class="auth-subtitle">Pick up where your practice left off.</p>
+  <form method="post" action="{{ url_for('login', next=request.args.get('next')) if request.args.get('next') else url_for('login') }}" class="auth-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="mb-3">
+      <label class="form-label" for="email">Email address</label>
+      <input class="form-control" id="email" name="email" type="email" autocomplete="email"
+             maxlength="254" value="{{ email|default('') }}" placeholder="you@example.com" required>
+    </div>
+    <div class="mb-4">
+      <label class="form-label" for="password">Password</label>
+      <div class="password-wrap">
+        <input class="form-control" id="password" name="password" type="password" autocomplete="current-password"
+               maxlength="128" placeholder="Your password" required>
+        <button class="password-toggle" type="button" data-toggle-password="password" aria-label="Show password">Show</button>
+      </div>
+    </div>
+    <button class="btn btn-primary w-100 auth-submit" type="submit">Log in</button>
+  </form>
+  <p class="auth-switch">New to Prep? <a href="{{ url_for('register') }}">Create an account</a></p>
+{% endblock %}
